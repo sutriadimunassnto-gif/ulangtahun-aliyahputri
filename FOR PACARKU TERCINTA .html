@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Happy Birthday Sayang ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Sacramento&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- Setup Warna --- */
+        :root {
+            --primary: #ff4d6d;
+            --secondary: #ff8fa3;
+            --bg-pink: #fff0f3;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(135deg, #fff0f3 0%, #ffccd5 100%);
+            
+            /* --- PERBAIKAN SCROLL --- */
+            /* Mengizinkan geser ke atas-bawah */
+            overflow-y: auto; 
+            /* Mencegah geser ke samping */
+            overflow-x: hidden;
+        }
+
+        /* Container utama agar konten di tengah tapi bisa di-scroll */
+        .main-wrapper {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 0; /* Memberi ruang atas bawah */
+            box-sizing: border-box;
+        }
+
+        /* --- Background Hiasan --- */
+        .floating-hearts-bg {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: -1; overflow: hidden;
+        }
+        .float-item {
+            position: absolute; bottom: -10vh; opacity: 0;
+            animation: floatUp linear infinite; color: rgba(255, 77, 109, 0.3);
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            50% { opacity: 0.8; }
+            100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* --- Intro Screen --- */
+        .intro-screen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            z-index: 50; display: flex; flex-direction: column;
+            justify_content: center; align-items: center;
+            transition: opacity 0.8s ease;
+        }
+
+        .heart-btn {
+            font-size: 5rem; color: var(--primary); cursor: pointer;
+            animation: heartbeat 1.2s infinite;
+        }
+        @keyframes heartbeat {
+            0% { transform: scale(1); } 14% { transform: scale(1.1); } 28% { transform: scale(1); } 42% { transform: scale(1.1); } 70% { transform: scale(1); }
+        }
+
+        /* --- Kartu Utama --- */
+        .card-container {
+            display: none; /* Hidden awal */
+            position: relative; width: 85%; max-width: 400px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px); border-radius: 25px;
+            padding: 35px 25px;
+            box-shadow: 0 20px 50px rgba(255, 77, 109, 0.2);
+            text-align: center; border: 3px solid #fff;
+            opacity: 0; transform: translateY(50px);
+            transition: all 0.8s ease;
+            margin: auto; /* Agar posisi aman */
+        }
+
+        .single-photo-frame {
+            background: white;
+            padding: 10px 10px 35px 10px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            width: 80%; margin: 0 auto 25px;
+            transform: rotate(-3deg); border-radius: 4px;
+        }
+
+        .single-photo-frame img {
+            width: 100%; height: auto; display: block; border-radius: 2px;
+        }
+
+        h1 {
+            font-family: 'Sacramento', cursive; font-size: 3rem;
+            color: var(--primary); margin: 0 0 15px; line-height: 1.2;
+        }
+
+        .message-box {
+            font-size: 1rem; color: #555; line-height: 1.6;
+            min-height: 100px; margin-bottom: 30px; white-space: pre-wrap;
+        }
+
+        .btn-love {
+            background: var(--primary); color: white; border: none;
+            padding: 14px 40px; border-radius: 50px;
+            font-size: 1.1rem; font-weight: bold; cursor: pointer;
+            box-shadow: 0 5px 20px rgba(255, 77, 109, 0.4);
+            transition: transform 0.2s; width: 90%;
+        }
+        .btn-love:active { transform: scale(0.95); }
+    </style>
+</head>
+<body>
+
+    <audio id="bg-music" loop>
+        <source src="Nadhif Basalamah - kota ini tak sama tanpamu (Official Audio).mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="floating-hearts-bg">
+        <div class="float-item" style="left: 10%; font-size: 30px; animation-duration: 15s;">❤️</div>
+        <div class="float-item" style="left: 30%; font-size: 20px; animation-duration: 12s; animation-delay: 2s;">💖</div>
+        <div class="float-item" style="left: 85%; font-size: 35px; animation-duration: 20s; animation-delay: 3s;">💖</div>
+    </div>
+
+    <div class="intro-screen" id="intro" onclick="bukaKartu()">
+        <div class="heart-btn">❤️</div>
+        <p style="margin-top: 15px; color: #ff4d6d; font-weight: 700;">Tap Hatinya...</p>
+    </div>
+
+    <div class="main-wrapper">
+        <div class="card-container" id="card">
+            
+            <div class="single-photo-frame">
+                <img src="mine 1.jpg" alt="Foto Kita">
+                <img src="awal.jpg" alt="Foto Kita">
+                 <img src="mine 4.jpg" alt="Foto Kita">
+            </div>
+
+            <h1>Happy Birthday Sayang</h1>
+            
+            <div class="message-box" id="typing-text"></div>
+
+            <button class="btn-love" onclick="tebarCinta()">I Love You Forever! ❤️</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <script>
+        // GANTI PESAN DISINI
+        const pesanLengkap = "Selamat ulang tahun, Sayangku, separuh jiwaku yang saat ini sedang berada jauh di mata namun begitu dekat di hati. <br><br> Sudah 17 tahun juga ee,sudah tidaa bocil lagi, bisa mi bikin KTP tapi jangan sombong nanti kalau sudah punya KTP jangan pamer pamer terus. Sudah mulai dewasa semoga tidaa keras lagi kepalamu pas di kasih tau. <br><br> Di hari istimewamu ini, sa ingin ambil sejenak waktu untuk berterima kasih pada takdir karena sudah mempertemukan kita. Terima kasih ya, sudah menjadi rumah paling nyaman untuk sa pulang, terima kasih sudah menjadi manusia paling sabar yang selalu memeluk segala kurang dan lebihku tanpa keluhan, bahkan di saat-saat saya mungkin sulit untuk dimengerti. <br><br> Sa minta maaf juga karna ucapan ulang tahun ini yang telat untuk sa sampaikan dan juga sa minta maaf semua atas kelakuan ku yang bikin trauma di hari special mu ini tapi jujur saya juga tidak pengen ada kejadian seperti ini tapi mau di apa takdir sudah begini. <br><br> Jujur, ada rasa sedikit sesak karena kita belum bisa bertemu hari ini untuk merayakan hari special mu ini meniup lilin bersama, tapi percayalah Sayang, jarak ribuan kilometer pun tidak akan pernah bisa mengurangi hangatnya kasih sayang dan harapan tulus yang sakirimkan untukmu setiap hari. <br><br> Sa berharap, di usiamu yang baru ini, semesta selalu berpihak padamu, memberikan kesehatan, kebahagiaan yang melimpah, dan kelancaran untuk semua hal hebat yang sedang kamu perjuangkan. Tetaplah kuat mengejar mimpi-mimpimu ya, jangan pernah merasa sendiri, karena di sini ada saya yang akan selalu menjadi pendukung terdepanmu dalam keadaan apapun. Semoga lelahnya rindu dan jarak ini segera terbayar lunas dengan pertemuan yang indah, dan semoga kita memang ditakdirkan untuk menua bersama, menikmati setiap detik sisa hidup ini berdua selamanya. Maaf hanya bisa ucapkan begini mungkin tidak terlalu berarti untuk kamu tapi jujur sa buat ini dengan tulus demi perempuan yang sa sayang. <br><br> Selamat ulang tahun, Cintaku. Aku menyayangimu, lebih dari sekadar kata-kata yang bisa sa tuliskan di sini. <br><br> DARI PACARMU MU TERCINTA<br><br>-SUTRIADI MUNA SUSANTO- <br><br> ❤️";
+
+        const intro = document.getElementById('intro');
+        const card = document.getElementById('card');
+        const music = document.getElementById('bg-music');
+        const typingText = document.getElementById('typing-text');
+        let i = 0;
+        let isOpened = false;
+
+        function bukaKartu() {
+            if (isOpened) return;
+            isOpened = true;
+            music.play().catch(e => console.log("Audio play failed"));
+
+            intro.style.opacity = 0;
+            setTimeout(() => {
+                intro.style.display = 'none';
+                card.style.display = 'block';
+                setTimeout(() => {
+                    card.style.opacity = 1;
+                    card.style.transform = 'translateY(0)';
+                    ketikPesan();
+                    tebarCintaAwal();
+                }, 100);
+            }, 800);
+        }
+
+        function ketikPesan() {
+            if (i < pesanLengkap.length) {
+                if (pesanLengkap.substring(i, i+4) === "<br>") {
+                    typingText.innerHTML += "<br>";
+                    i += 4;
+                } else {
+                    typingText.innerHTML += pesanLengkap.charAt(i);
+                    i++;
+                }
+                setTimeout(ketikPesan, 25); 
+            }
+        }
+
+        function tebarCinta() {
+            confetti({
+                spread: 360, ticks: 100, gravity: 0, decay: 0.94, startVelocity: 30,
+                shapes: ['heart'], colors: ['#ff4d6d', '#ff8fa3', '#fff0f3', '#ff0000'],
+                particleCount: 60, scalar: 2
+            });
+        }
+
+        function tebarCintaAwal() {
+             var duration = 2 * 1000;
+             var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0, shapes: ['heart'], colors: ['#ff4d6d', '#ff758f'] };
+             var end = Date.now() + duration;
+             var interval = setInterval(function() {
+                 if (Date.now() > end) return clearInterval(interval);
+                 confetti(Object.assign({}, defaults, { particleCount: 50, origin: { x: Math.random(), y: Math.random() - 0.2 } }));
+             }, 250);
+        }
+    </script>
+</body>
+</html>
